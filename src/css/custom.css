@@ -1,0 +1,54 @@
+.box{
+    height:200px;
+    width:200px;
+    border: 1px solid gray;
+    float: left;
+}
+.row{
+    width: calc(200px * 6);
+    display: block;
+}
+#container{
+    font-size:22px;
+    padding:50x;
+    margin: 50px;
+}
+.redbutton{
+    line-height: 50px;
+    margin:20px;
+    height:50px;
+    font-size: 22px;
+    min-width:75px;
+    padding-left:14px;
+    padding-right:14px;
+    background-color:red;
+    color: white;
+    border-radius: 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+.redbutton:hover{
+    background-color:rgb(255, 132, 132);
+}
+.purpover{
+    background-color: blueviolet;
+}
+.purpover:hover{
+    background-color: rgb(163, 94, 228);
+}
+.gray{
+    cursor:not-allowed;
+    background-color: rgb(123, 123, 123);
+}
+.gray:hover{
+    background-color: rgb(159, 159, 159);
+}
+.smaller{
+    font-size: 14px;
+}
+.greenover{
+    background-color: green;
+}
+.greenover:hover{
+    background-color: rgb(23, 165, 23);
+}
