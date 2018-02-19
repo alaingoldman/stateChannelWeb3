@@ -52,3 +52,9 @@
 .greenover:hover{
     background-color: rgb(23, 165, 23);
 }
+.pinkover{
+    background-color: rgb(189, 26, 175);
+}
+.pinkover:hover{
+    background-color: rgb(250, 116, 255);
+}

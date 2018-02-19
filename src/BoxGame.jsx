@@ -79,7 +79,7 @@ class BoxGame extends Component {
     }
 
     openStateChannel(){
-        this.state.contractInstance.OpenChannel(this.state.target, 600, {from: this.state.currentWallet, value: 3},  (err, result) => {
+        this.state.contractInstance.OpenChannel(this.state.target, 6000, {from: this.state.currentWallet, value: 3},  (err, result) => {
             console.log("opened a state channel", result);
         })
     }
@@ -90,29 +90,19 @@ class BoxGame extends Component {
     }
 
     sendMessage() {
-                var msg = "Lorem ipsum dolar sit amit";
-                let _msg_hash = sha3(this.state.channelId, msg);   
-                
-                console.log(this.state.channelId);
-                console.log(msg, _msg_hash);
-                
-                web3.personal.sign(_msg_hash, web3.eth.accounts[0], function(error, result){
-                    debugger;
-                });
-        // var _value = 0.01*Math.pow(10, 18)    
-        // var value = _value.toString(16)    
-        // let _msg_hash = sha3(`0x${this.state.channelId}`, _value);    
-        // let msg_hash = Buffer.from(_msg_hash.substr(2, 64), 'hex');  
-        // let sig = util.ecsign(msg_hash, keys.test.privateKey);
-        // console.log(msg_hash);
-        // let parsed_sig = {      
-        // v: sig.v.toString(16),      
-        // r: sig.r.toString('hex'),      
-        // s: sig.s.toString('hex')    
-        // };    
-        // latest_value = value;    
-        // latest_sig = parsed_sig;    
-        // latest_msg_hash = msg_hash.toString('hex')
+        let that = this;
+        var msg = "Lorem ipsum dolar sit amit";
+        let _msg_hash = sha3(this.state.channelId, msg);   
+
+        web3.personal.sign(_msg_hash, web3.eth.accounts[0], function(error, result){
+            let r = "0x" + result.slice(2, 66); 
+            let s = "0x" + result.slice(66, 130); 
+            let v = "0x" + result.slice(130, 132) 
+            let h = [that.state.channelId, _msg_hash, r, s]; 
+            that.state.contractInstance.VerifyMsg.call(h, v, 3, (err, result) => {
+                debugger;
+            })
+        });
     }
 
     render() {
@@ -147,7 +137,7 @@ class BoxGame extends Component {
                 <br />
                   <b>0x6e6048503d4686def8eD5c968f653ce54F490e42</b> <br />
                   <b>0x6DFE44316C39132a4AA4603Cb4cBb204ed5C428F</b>  </p>
-                  <p> The state channel lasts 10 minutes for debugging purposes </p>
+                  <p> The state channel lasts 1.5 hours for debugging purposes </p>
                   <p> This assumes you're logged in as <b>0x6e604....42 </b></p>
                  <br />
                 
