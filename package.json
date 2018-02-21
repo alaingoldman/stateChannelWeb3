@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ethereumjs-util": "^5.1.4",
     "firebase": "^4.9.1",
     "jquery": "^3.3.1",
+    "js-sha3": "^0.7.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
@@ -13,7 +15,8 @@
     "socket.io-client": "^2.0.4",
     "solidity-sha3": "^0.4.1",
     "truffle-contract": "^3.0.3",
-    "web3": "0.19.0"
+    "web3": "0.19.0",
+    "web3-utils": "^1.0.0-beta.30"
   },
   "scripts": {
     "start": "react-scripts start",
