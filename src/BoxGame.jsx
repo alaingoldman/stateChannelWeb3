@@ -4,6 +4,7 @@ import firebae from 'firebase';
 import sha3 from 'solidity-sha3'
 import web3Utils  from 'web3-utils';
 import { keccak256 } from 'js-sha3';
+import * as firebase from 'firebase';
 
 import Web3 from 'web3';
 import util from 'ethereumjs-util'; 
@@ -23,6 +24,16 @@ class BoxGame extends Component {
             channelId: null,
             signedMessage: "0x0aa8db967db02f882950127eefa0fe875aff4b8368c126a8f01b6b3bdc29836279032291874d3a194b76b69c3040a99024a4c02d9712249de0a1f928e23cc5971b"
         }
+    }
+
+    componentWillMount() {
+        var config = {
+          apiKey: 'AIzaSyCyVq3TQ-ZsE965YHSnzGnax-v25F8GUCk',
+          authDomain: 'test-stre.firebaseapp.com',
+          databaseURL: 'https://test-stre.firebaseio.com'
+        };
+
+        firebase.initializeApp(config);
     }
 
     runQueries() {
@@ -103,20 +114,38 @@ class BoxGame extends Component {
 
     sendMessage() {
         let that = this;
-        var msg = "Lorem ipsum dolar sit amit";
+        // var msg = "Lorem ipsum dolar sit amit";
+        var username = "dipshit3000";
+        var _msg_hash = web3Utils.soliditySha3(username);
+        // var _msg_hash = 123;
 
-        var _msg_hash = web3Utils.soliditySha3(this.state.channelId, 3);
+        web3.personal.sign(_msg_hash, web3.eth.accounts[0], function(error, result){
+            if (error !== null) { return; }
 
-        web3.personal.sign(msg, web3.eth.accounts[0], function(error, result){
-            let r = "0x" + result.slice(2, 66); 
-            let s = "09x" + result.slice(66, 130); 
-            let v = "0x" + result.slice(130, 132) 
-            let h = [that.state.channelId, _msg_hash, r, s]; 
+            web3.personal.ecRecover(_msg_hash, result, function(error2, rr){
+                if (error2 !== null) { return; }
+                // if (rr != web3.eth.accounts[0])
+                // ^ it means someone else signed it and it's not valid 
+                let q = firebase.database().ref(web3.eth.accounts[0]);
+                let referalInfo = {
+                  "username": "dipshit3000"
+                };
+                q.set(referalInfo).then((f) => {
+                    alert("success");
+                }).catch((e) => {
+                    alert("error");
+                })
+            });
 
-            that.state.contractInstance.VerifyMsg.call(h, v, 3, (err, result) => {
-                let xxx = result.toNumber();
-                debugger;
-            })
+            // let r = "0x" + result.slice(2, 66); 
+            // let s = "0x" + result.slice(66, 130); 
+            // let v = "0x" + result.slice(130, 132) 
+            // let h = [that.state.channelId, _msg_hash, r, s]; 
+
+            // that.state.contractInstance.VerifyMsg.call(h, v, 3, (err, result) => {
+            //     let xxx = result.toNumber();
+            //     debugger;
+            // })
         });
     }
 
@@ -189,7 +218,7 @@ class BoxGame extends Component {
                   <b>0x6e6048503d4686def8eD5c968f653ce54F490e42</b> <br />
                   <b>0x6DFE44316C39132a4AA4603Cb4cBb204ed5C428F</b>  </p>
                   <p> The state channel lasts 1.5 hours for debugging purposes </p>
-                  <p> This assumes you're logged in as <b>0x6e604....42 </b></p>
+                  <p> This assumes you{"'"}re logged in as <b>0x6e604....42 </b></p>
                  <br />
                 
                 <a href="https://rinkeby.etherscan.io/address/0xaDc53dD995C93FCbE42AFA485610F711f3A78Da6" className="smaller" target="blank">
