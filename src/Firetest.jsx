@@ -37,12 +37,6 @@ class Firetest extends Component {
     }, this)
   }
 
-  populateChange = () => {
-    if(this.state.data) {
-        return <div> {this.state.data} </div>
-    }
-  }
-
   render() {
     return (
     	<div className="imagebg bg--dark" >
