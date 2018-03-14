@@ -26,16 +26,6 @@ class BoxGame extends Component {
         }
     }
 
-    componentWillMount() {
-        var config = {
-          apiKey: 'AIzaSyCyVq3TQ-ZsE965YHSnzGnax-v25F8GUCk',
-          authDomain: 'test-stre.firebaseapp.com',
-          databaseURL: 'https://test-stre.firebaseio.com'
-        };
-
-        firebase.initializeApp(config);
-    }
-
     runQueries() {
         if(!this.state.contractInstance) { return; }
         let channelId;
