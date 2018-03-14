@@ -37,11 +37,18 @@ class Firetest extends Component {
     }, this)
   }
 
+  expressPost = () => {
+    $.post("http://localhost:3000/firetest", {crap: "aaa", poop: "bbbb"}, function(data){
+        alert("Response: " + data);
+    });
+  }
+
   render() {
     return (
     	<div className="imagebg bg--dark" >
             <h2> Welcome to firetest </h2>
             <div className="redbutton redbutton" onClick={this.setChange}>updates</div>
+            <div className="redbutton greenover" onClick={this.expressPost}>post to express</div>
             {this.state.data}
     	</div>
     );
