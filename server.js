@@ -21,6 +21,17 @@ app.get('/', function (req, res) {
 
 app.post('/firetest', function (req, res) {
 	console.log(req.body);
+	console.log("attempt push to firebase");
+	let ref = firebase.database().ref("example");
+    let val = Math.floor(Math.random() * Math.floor(1000));;
+    let change = {
+      "someVal": val
+    };
+    ref.set(change).then((f) => {
+		console.log("success!")
+    }).catch((e) => {
+		console.log("error!")
+    })
 });
 
 app.listen(process.env.PORT || 8080);	
