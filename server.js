@@ -3,6 +3,13 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
 
+var firebase = require('firebase');
+firebase.initializeApp({
+	apiKey: 'AIzaSyCyVq3TQ-ZsE965YHSnzGnax-v25F8GUCk',
+	authDomain: 'test-stre.firebaseapp.com',
+	databaseURL: 'https://test-stre.firebaseio.com'
+});
+
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
