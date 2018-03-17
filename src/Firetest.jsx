@@ -8,8 +8,7 @@ class Firetest extends Component {
   constructor(props){
     super(props);
     this.state = {
-        loading: true,
-        data: {}
+        loading: true
     }
     this.getInitial();
     this.getChange();
@@ -31,6 +30,7 @@ class Firetest extends Component {
         turn: 0 
       }
       ref.set(value).then((f) => {
+        this.setState({ data: value });
         console.log("success!")
       }).catch((e) => {
         console.log("error!")
@@ -60,31 +60,39 @@ class Firetest extends Component {
     let enemyHealthWidth  = {width: '100%'};
     let playerHealthWidth = {width: '100%'};
     
-    if (!this.state.loading){
+    if (!this.state.loading && this.state.data){
       let enemeyHelth = parseInt((this.state.data.defender.hp / this.state.data.defender.bp) * 100) + "%";
       enemyHealthWidth = { width: enemeyHelth };
       let playerHelth = parseInt((this.state.data.attacker.hp / this.state.data.attacker.bp) * 100) + "%";
       playerHealthWidth = { width: playerHelth };
     }
-    return (
-    	<div className="imagebg bg--dark">
-          <div className="wrapBuffer">
+    if(this.state.data == undefined){
+      return(
+        <div className="wrapBuffer">
             <h2 className="clickable" onClick={this.resetRoom}> Battle room <span className="redtext">click to reset</span></h2>
-            <div className="hp-bar">
-              your health
-              <div className="hp-bar-active player" style={playerHealthWidth}/>
+        </div>
+      )
+    } else {
+      return (
+        <div className="imagebg bg--dark">
+            <div className="wrapBuffer">
+              <h2 className="clickable" onClick={this.resetRoom}> Battle room <span className="redtext">click to reset</span></h2>
+              <div className="hp-bar">
+                your health
+                <div className="hp-bar-active player" style={playerHealthWidth}/>
+              </div>
+              <div className="hp-bar">
+                enemy
+                <div className="hp-bar-active enemy" style={enemyHealthWidth}/>
+              </div>
+              <div className="redbutton" onClick={this.expressPost} data-move="1">switpe attack</div>
+              <div className="redbutton greenover" onClick={this.expressPost} data-move="2">self heal</div>
+              <div className="redbutton purpover" onClick={this.expressPost} data-move="3">poison</div>
+              {/*this.state.data*/}
             </div>
-            <div className="hp-bar">
-              enemy
-              <div className="hp-bar-active enemy" style={enemyHealthWidth}/>
-            </div>
-            <div className="redbutton" onClick={this.expressPost} data-move="1">switpe attack</div>
-            <div className="redbutton greenover" onClick={this.expressPost} data-move="2">self heal</div>
-            <div className="redbutton purpover" onClick={this.expressPost} data-move="3">poison</div>
-            {/*this.state.data*/}
-          </div>
-    	</div>
-    );
+        </div>
+      );
+    }
   }
 }
 
