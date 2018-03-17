@@ -13,19 +13,40 @@
     padding:50x;
     margin: 50px;
 }
+.hp-bar, .hp-bar-active{
+    height:42px;
+    margin-right:20px;
+    margin-bottom:12px;
+    background-color:rgb(221, 221, 221);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 38px;
+    position: relative;
+}
+.hp-bar-active{
+    background-color: rgba(23, 165, 23,0.5);
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    /* margin */
+}
+.wrapBuffer{
+    margin-left:20px;
+}
 .redbutton{
-    line-height: 50px;
-    margin:20px;
-    height:50px;
-    font-size: 22px;
-    min-width:75px;
-    padding-left:14px;
-    padding-right:14px;
+    line-height: 38px;
+    margin: 20px 20px 20px 0;
+    height:42px;
+    width: 180px;
+    font-size: 19px;
+    padding-left:10px;
+    padding-right:10px;
     background-color:red;
     color: white;
     border-radius: 10px;
-    display: inline-block;
     cursor: pointer;
+    text-align: center;
 }
 .redbutton:hover{
     background-color:rgb(255, 132, 132);
@@ -57,4 +78,13 @@
 }
 .pinkover:hover{
     background-color: rgb(250, 116, 255);
+}
+.redtext{
+    color: red;
+}
+.clickable{
+    cursor: pointer;
+}
+.clickable:hover{
+    opacity: 0.5;
 }

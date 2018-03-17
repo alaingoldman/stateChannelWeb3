@@ -28,9 +28,21 @@ class Firetest extends Component {
   render() {
     return (
     	<div className="imagebg bg--dark" >
-            <h2> Welcome to firetest </h2>
-            <div className="redbutton greenover" onClick={this.expressPost}>post to express</div>
+          <div className="wrapBuffer">
+            <h2 className="clickable"> Battle room <span className="redtext">click to reset</span></h2>
+            <div className="hp-bar">
+              health
+              <div className="hp-bar-active" />
+            </div>
+            <div className="hp-bar enemy">
+              health
+              <div className="hp-bar-active" />
+            </div>
+            <div className="redbutton" onClick={this.expressPost}>switpe attack</div>
+            <div className="redbutton greenover" onClick={this.expressPost}>self heal</div>
+            <div className="redbutton purpover" onClick={this.expressPost}>poison</div>
             {this.state.data}
+          </div>
     	</div>
     );
   }
