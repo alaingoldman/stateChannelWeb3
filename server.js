@@ -23,7 +23,6 @@ app.post('/firetest', function (req, res) {
 	console.log(req.body);
   console.log("attempt push to firebase");
   // console.log(Moves[1]);
-
   // battle validations 
 	// - get current battle from fb
 	// - check if it's your turn
