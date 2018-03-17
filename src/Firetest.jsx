@@ -13,6 +13,28 @@ class Firetest extends Component {
     this.getChange();
   }
 
+  resetRoom = () => {
+    let ref = firebase.database().ref("example");
+      let value = {
+        attacker: {
+            bp: 123,
+            hp: 123, 
+            moves: [1,2,3]
+        },
+        defender: {
+            bp: 123,
+            hp: 123, 
+            moves: [1,2,3]
+        },
+        turn: 0 
+      }
+      ref.set(value).then((f) => {
+        console.log("success!")
+      }).catch((e) => {
+        console.log("error!")
+      })
+  }
+
   getChange = () => {
     firebase.database().ref("example").on("child_changed", function(snapshot, prevChildKey) {
         this.setState({data: snapshot.val()})
@@ -30,7 +52,7 @@ class Firetest extends Component {
     return (
     	<div className="imagebg bg--dark" >
           <div className="wrapBuffer">
-            <h2 className="clickable"> Battle room <span className="redtext">click to reset</span></h2>
+            <h2 className="clickable" onClick={this.resetRoom}> Battle room <span className="redtext">click to reset</span></h2>
             <div className="hp-bar">
               your health
               <div className="hp-bar-active" />
