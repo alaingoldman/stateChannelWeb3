@@ -31,12 +31,12 @@ class Firetest extends Component {
           <div className="wrapBuffer">
             <h2 className="clickable"> Battle room <span className="redtext">click to reset</span></h2>
             <div className="hp-bar">
-              health
+              your health
               <div className="hp-bar-active" />
             </div>
-            <div className="hp-bar enemy">
-              health
-              <div className="hp-bar-active" />
+            <div className="hp-bar">
+              enemy
+              <div className="hp-bar-active enemy" />
             </div>
             <div className="redbutton" onClick={this.expressPost}>switpe attack</div>
             <div className="redbutton greenover" onClick={this.expressPost}>self heal</div>
