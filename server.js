@@ -22,7 +22,14 @@ app.get('/', function (req, res) {
 app.post('/firetest', function (req, res) {
 	console.log(req.body);
   console.log("attempt push to firebase");
-  console.log(Moves[1]);
+  // console.log(Moves[1]);
+
+  // battle validations 
+	// - get current battle from fb
+	// - check if it's your turn
+	// - check if you own those moves 
+	// - check you and the other dude are not dead
+
 	// let ref = firebase.database().ref("example");
   //   let val = Math.floor(Math.random() * Math.floor(1000));;
   //   let change = {
@@ -36,8 +43,6 @@ app.post('/firetest', function (req, res) {
 });
 
 app.listen(process.env.PORT || 8080);	
-
-
 
 var Moves = {
   1 : {
@@ -56,8 +61,8 @@ var Moves = {
   },
   3 : {
       isDamage: true, 
-      delay: 0,
-      duration: 0,
+      delay: 1,
+      duration: 3,
       accuracy: 0.93,
       effect: 0.5
   }

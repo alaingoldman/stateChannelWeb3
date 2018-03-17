@@ -19,8 +19,9 @@ class Firetest extends Component {
     }, this)
   }
 
-  expressPost = () => {
-    $.post("http://localhost:3000/firetest", {crap: "aaa", poop: "bbbb"}, function(data){
+  expressPost = (e) => {
+    let move = parseInt(e.target.attributes["data-move"].value)
+    $.post("http://localhost:3000/firetest", { move: move }, function(data){
         alert("Response: " + data);
     });
   }
@@ -38,9 +39,9 @@ class Firetest extends Component {
               enemy
               <div className="hp-bar-active enemy" />
             </div>
-            <div className="redbutton" onClick={this.expressPost}>switpe attack</div>
-            <div className="redbutton greenover" onClick={this.expressPost}>self heal</div>
-            <div className="redbutton purpover" onClick={this.expressPost}>poison</div>
+            <div className="redbutton" onClick={this.expressPost} data-move="1">switpe attack</div>
+            <div className="redbutton greenover" onClick={this.expressPost} data-move="2">self heal</div>
+            <div className="redbutton purpover" onClick={this.expressPost} data-move="3">poison</div>
             {this.state.data}
           </div>
     	</div>
