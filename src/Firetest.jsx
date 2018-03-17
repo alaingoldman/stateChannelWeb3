@@ -72,27 +72,26 @@ class Firetest extends Component {
             <h2 className="clickable" onClick={this.resetRoom}> Battle room <span className="redtext">click to reset</span></h2>
         </div>
       )
-    } else {
-      return (
-        <div className="imagebg bg--dark">
-            <div className="wrapBuffer">
-              <h2 className="clickable" onClick={this.resetRoom}> Battle room <span className="redtext">click to reset</span></h2>
-              <div className="hp-bar">
-                your health
-                <div className="hp-bar-active player" style={playerHealthWidth}/>
-              </div>
-              <div className="hp-bar">
-                enemy
-                <div className="hp-bar-active enemy" style={enemyHealthWidth}/>
-              </div>
-              <div className="redbutton" onClick={this.expressPost} data-move="1">switpe attack</div>
-              <div className="redbutton greenover" onClick={this.expressPost} data-move="2">self heal</div>
-              <div className="redbutton purpover" onClick={this.expressPost} data-move="3">poison</div>
-              {/*this.state.data*/}
-            </div>
-        </div>
-      );
     }
+    return (
+      <div className="imagebg bg--dark">
+          <div className="wrapBuffer">
+            <h2 className="clickable" onClick={this.resetRoom}> Battle room <span className="redtext">click to reset</span></h2>
+            <div className="hp-bar">
+              your health
+              <div className="hp-bar-active player" style={playerHealthWidth}/>
+            </div>
+            <div className="hp-bar">
+              enemy
+              <div className="hp-bar-active enemy" style={enemyHealthWidth}/>
+            </div>
+            <div className="redbutton" onClick={this.expressPost} data-move="1">switpe attack</div>
+            <div className="redbutton greenover" onClick={this.expressPost} data-move="2">self heal</div>
+            <div className="redbutton purpover" onClick={this.expressPost} data-move="3">poison</div>
+            {/*this.state.data*/}
+          </div>
+      </div>
+    );
   }
 }
 

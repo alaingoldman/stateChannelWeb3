@@ -20,25 +20,44 @@ app.get('/', function (req, res) {
 });
 
 app.post('/firetest', function (req, res) {
-	console.log(req.body);
-  console.log("attempt push to firebase");
-  // console.log(Moves[1]);
-  // battle validations 
-	// - get current battle from fb
-	// - check if it's your turn
-	// - check if you own those moves 
-	// - check you and the other dude are not dead
+  console.log(req.body);
 
-	// let ref = firebase.database().ref("example");
-  //   let val = Math.floor(Math.random() * Math.floor(1000));;
-  //   let change = {
-  //     "someVal": val
-  //   };
-  //   ref.set(change).then((f) => {
-	// 	console.log("success!")
-  //   }).catch((e) => {
-	// 	console.log("error!")
-  //   })
+  // get the state of the battle
+  firebase.database().ref("example").once("value", function(snapshot) {
+    // console.log(snapshot.val());
+    let moveSelected = Moves[parseInt(req.body.move)];
+    let battleState = snapshot.val();
+
+    let moveAccuracy = moveSelected.accuracy * 100; 
+    for(var i = 0; i < 400; i++){
+      let rollHit = Math.floor(Math.random() * 100 + 1);  // intended range is 1 - 100
+      if (rollHit >= moveAccuracy){
+        console.log("mis--------------------: ", rollHit);
+      } else {
+        console.log("hit: ", rollHit);
+      }
+    }
+    
+    // console.log(moveSelected);
+    // for(var i = 0; i < 200; i++){
+    //   let xxxx = Math.floor(Math.random() * 5);
+    //   if(xxxx == 0){
+    //     console.log("you missed: 0");
+    //   }else{
+    //     console.log("hit: " + xxxx);
+    //   }
+    // }
+    // if damage 
+      // calculate 
+    // if not damage
+
+    // console.log(battleState.attacker);
+    // console.log(battleState.attacker.moves[parseInt(req.body.move)]);
+    	// - get current battle from fb
+      // - check if it's your turn
+      // - check if you own those moves 
+      // - check you and the other dude are not dead
+  })
 });
 
 app.listen(process.env.PORT || 8080);	
