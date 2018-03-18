@@ -9,7 +9,7 @@ class Firetest extends Component {
     super(props);
     this.state = {
         loading: true
-    }
+    };
     this.getInitial();
     this.getChange();
   }
@@ -24,7 +24,7 @@ class Firetest extends Component {
         },
         defender: {
             bp: 123,
-            hp: 100, 
+            hp: 123, 
             moves: [1,2,3]
         },
         turn: 0 
