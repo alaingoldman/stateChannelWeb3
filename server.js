@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/firetest', function (req, res) {
-  for(var i = 0; i < 100; i++){ 
+  // for(var i = 0; i < 100; i++){ 
   // console.log(req.body);
 
   // get the state of the battle
@@ -32,7 +32,7 @@ app.post('/firetest', function (req, res) {
 
 
     // LOCAL VARIABLES ::::::::::::::
-    let monsterBp = 1000; //////////// to be changed <-----
+    let monsterBp = 123; //////////// to be changed <-----
     let moveSelected = Moves[parseInt(req.body.move)];
     // let battleState = snapshot.val();
     let battleState = {
@@ -68,13 +68,13 @@ app.post('/firetest', function (req, res) {
         let bpRandomizer = Math.floor(Math.random() * battlePointVariance + 1);
         if (bpRandomizer == (battlePointVariance / 2)) {
           console.log("median");
-          effectPoints = monsterBp * moveSelected.effect;
+          effectPoints = Math.floor(monsterBp * moveSelected.effect);
         }else if (bpRandomizer < (battlePointVariance / 2)){
           console.log("Under median");
-          effectPoints = monsterBp * moveSelected.effect - bpRandomizer;
+          effectPoints = Math.floor(monsterBp * moveSelected.effect - bpRandomizer);
         }else {
           console.log("Above median");
-          effectPoints = monsterBp * moveSelected.effect + bpRandomizer;
+          effectPoints = Math.floor(monsterBp * moveSelected.effect + bpRandomizer);
         }
       }
     } else {
@@ -105,7 +105,7 @@ app.post('/firetest', function (req, res) {
     // console.log(battleState.attacker);
     // console.log(battleState.attacker.moves[parseInt(req.body.move)]);
     	// - get current battle from fb
-  }
+  // }
   // })
 });
 
@@ -127,7 +127,7 @@ var Moves = {
       delay: 0,
       duration: 0,
       accuracy: 1,
-      effect: 0.5,
+      effect: 0.25,
       criticalBonus: 0
   },
   3 : {
