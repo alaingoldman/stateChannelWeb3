@@ -20,10 +20,11 @@ app.get('/', function (req, res) {
 });
 
 app.post('/firetest', function (req, res) {
+  for(var i = 0; i < 100; i++){ 
   // console.log(req.body);
 
   // get the state of the battle
-  firebase.database().ref("example").once("value", function(snapshot) {
+  // firebase.database().ref("example").once("value", function(snapshot) {
     // VALIDATIONS HERE ::::::::::::::::
       // - check if it's your turn
       // - check if you own those moves 
@@ -31,9 +32,22 @@ app.post('/firetest', function (req, res) {
 
 
     // LOCAL VARIABLES ::::::::::::::
-    let monsterBp = 123; //////////// to be changed <-----
+    let monsterBp = 1000; //////////// to be changed <-----
     let moveSelected = Moves[parseInt(req.body.move)];
-    let battleState = snapshot.val();
+    // let battleState = snapshot.val();
+    let battleState = {
+      attacker: {
+          bp: 123,
+          hp: 123, 
+          moves: [1,2,3]
+      },
+      defender: {
+          bp: 123,
+          hp: 123, 
+          moves: [1,2,3]
+      },
+      turn: 0 
+    }
     let moveAccuracy = moveSelected.accuracy * 100; 
     let effectPoints;
     let criticalHit;
@@ -49,13 +63,14 @@ app.post('/firetest', function (req, res) {
     // CALCULATE DMG/HEAL ::::::::::::::
     if (targetHit) {
       if (criticalHit){
+        console.log("!!!!!!!");
         effectPoints = Math.floor(moveSelected.effect * monsterBp * 1.8);
       } else {
         let battlePointVariance = Math.floor(0.2 * monsterBp);
         let bpRandomizer = Math.floor(Math.random() * battlePointVariance + 1);
         if (bpRandomizer == (battlePointVariance / 2)) {
           effectPoints = monsterBp;
-        }else if (damageVariance < (damageVariance / 2)){
+        }else if (bpRandomizer < (battlePointVariance / 2)){
           effectPoints = monsterBp - bpRandomizer;
         }else {
           effectPoints = monsterBp + bpRandomizer;
@@ -91,8 +106,8 @@ app.post('/firetest', function (req, res) {
     // console.log(battleState.attacker);
     // console.log(battleState.attacker.moves[parseInt(req.body.move)]);
     	// - get current battle from fb
-
-  })
+  }
+  // })
 });
 
 app.listen(process.env.PORT || 8080);	
@@ -105,7 +120,7 @@ var Moves = {
       duration: 0,
       accuracy: 0.93,
       effect: 0.5,
-      criticalBonus: 5
+      criticalBonus: 25
   },
   2 : {
       // heal
