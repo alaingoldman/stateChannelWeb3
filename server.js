@@ -20,10 +20,6 @@ app.get('/', function (req, res) {
 });
 
 app.post('/firetest', function (req, res) {
-  // for(var i = 0; i < 100; i++){ 
-  // console.log(req.body);
-
-  // get the state of the battle
   // firebase.database().ref("example").once("value", function(snapshot) {
     // VALIDATIONS HERE ::::::::::::::::
       // - check if it's your turn
@@ -82,32 +78,8 @@ app.post('/firetest', function (req, res) {
       effectPoints = 0;
     }
     console.log(effectPoints);
-    // console.log(rollHit, criticalHit);
-    // CALCULATE EFFECT :::::::::::
-    // }
 
-    // end scenario 
-    // increase turn 
-
-    // console.log(moveSelected);
-    // for(var i = 0; i < 200; i++){
-    //   let xxxx = Math.floor(Math.random() * 5);
-    //   if(xxxx == 0){
-    //     console.log("you missed: 0");
-    //   }else{
-    //     console.log("hit: " + xxxx);
-    //   }
-    // }
-    // if damage 
-      // calculate 
-    // if not damage
-
-    // console.log(battleState.attacker);
-    // console.log(battleState.attacker.moves[parseInt(req.body.move)]);
-    	// - get current battle from fb
-  // }
-  // })
-});
+  });
 
 app.listen(process.env.PORT || 8080);	
 
