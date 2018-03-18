@@ -53,34 +53,33 @@ app.post('/firetest', function (req, res) {
     let criticalHit;
     let targetHit;
 
-    // CALCULATE HIT CHANCE ::::::::::
+    // CALCULATE HIT/CRIT CHANCE ::::::::::
     let rollHit = Math.floor(Math.random() * 100 + 1);  // range is 1 - 100
     rollHit > moveAccuracy ? targetHit = false : targetHit = true;
-
-    // CALCULATE CRIT CHANCE :::::::::
     rollHit <= (1 + moveSelected.criticalBonus) ? criticalHit = true : criticalHit = false;
 
     // CALCULATE DMG/HEAL ::::::::::::::
     if (targetHit) {
       if (criticalHit){
-        console.log("!!!!!!!");
+        console.log("CRIT!");
         effectPoints = Math.floor(moveSelected.effect * monsterBp * 1.8);
       } else {
         let battlePointVariance = Math.floor(0.2 * monsterBp);
         let bpRandomizer = Math.floor(Math.random() * battlePointVariance + 1);
         if (bpRandomizer == (battlePointVariance / 2)) {
-          effectPoints = monsterBp;
+          console.log("median");
+          effectPoints = monsterBp * moveSelected.effect;
         }else if (bpRandomizer < (battlePointVariance / 2)){
-          effectPoints = monsterBp - bpRandomizer;
+          console.log("Under median");
+          effectPoints = monsterBp * moveSelected.effect - bpRandomizer;
         }else {
-          effectPoints = monsterBp + bpRandomizer;
+          console.log("Above median");
+          effectPoints = monsterBp * moveSelected.effect + bpRandomizer;
         }
       }
-      // let damageAverage =  moveSelected.effect 
-      // criticalHit ? a = 12 : a = 13 ;
     } else {
+      console.log("Miss :(");
       effectPoints = 0;
-      // push that to firebase and increae turn 
     }
     console.log(effectPoints);
     // console.log(rollHit, criticalHit);
@@ -120,7 +119,7 @@ var Moves = {
       duration: 0,
       accuracy: 0.93,
       effect: 0.5,
-      criticalBonus: 25
+      criticalBonus: 5
   },
   2 : {
       // heal
