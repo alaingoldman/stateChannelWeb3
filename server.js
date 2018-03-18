@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/firetest', function (req, res) {
-  console.log(req.body);
+  // console.log(req.body);
 
   // get the state of the battle
   firebase.database().ref("example").once("value", function(snapshot) {
@@ -29,28 +29,48 @@ app.post('/firetest', function (req, res) {
       // - check if you own those moves 
       // - check you and the other dude are not dead
 
-    // LOCAL VARIABLES :::::::::::::::::
+
+    // LOCAL VARIABLES ::::::::::::::
+    let monsterBp = 123; //////////// to be changed <-----
     let moveSelected = Moves[parseInt(req.body.move)];
     let battleState = snapshot.val();
     let moveAccuracy = moveSelected.accuracy * 100; 
-    let criticalHit = false;
+    let effectPoints;
+    let criticalHit;
+    let targetHit;
 
-    // CALCULATE HIT CHANCE :::::::::::
-    for(var i = 0; i < 300; i++){
-
+    // CALCULATE HIT CHANCE ::::::::::
     let rollHit = Math.floor(Math.random() * 100 + 1);  // range is 1 - 100
-    if (rollHit <= (1 + moveSelected.criticalBonus)){ criticalHit = true };
-    //rollHit > moveAccuracy ? console.log("miss ", rollHit) : console.log("hit ", rollHit);
+    rollHit > moveAccuracy ? targetHit = false : targetHit = true;
 
-    if(criticalHit){
-      console.log("CRITICAL HIT", rollHit);
-    }else{
-      console.log(rollHit);
+    // CALCULATE CRIT CHANCE :::::::::
+    rollHit <= (1 + moveSelected.criticalBonus) ? criticalHit = true : criticalHit = false;
+
+    // CALCULATE DMG/HEAL ::::::::::::::
+    if (targetHit) {
+      if (criticalHit){
+        effectPoints = Math.floor(moveSelected.effect * monsterBp * 1.8);
+      } else {
+        let battlePointVariance = Math.floor(0.2 * monsterBp);
+        let bpRandomizer = Math.floor(Math.random() * battlePointVariance + 1);
+        if (bpRandomizer == (battlePointVariance / 2)) {
+          effectPoints = monsterBp;
+        }else if (damageVariance < (damageVariance / 2)){
+          effectPoints = monsterBp - bpRandomizer;
+        }else {
+          effectPoints = monsterBp + bpRandomizer;
+        }
+      }
+      // let damageAverage =  moveSelected.effect 
+      // criticalHit ? a = 12 : a = 13 ;
+    } else {
+      effectPoints = 0;
+      // push that to firebase and increae turn 
     }
+    console.log(effectPoints);
     // console.log(rollHit, criticalHit);
     // CALCULATE EFFECT :::::::::::
-                  criticalHit = false;
-    }
+    // }
 
     // end scenario 
     // increase turn 
