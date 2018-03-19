@@ -44,7 +44,11 @@ class Firetest extends Component {
 
   getChange = () => {
     firebase.database().ref("example").on("child_changed", function(snapshot, prevChildKey) {
-        this.setState({data: snapshot.val()});
+        let newData = this.state.data;
+        newData[prevChildKey] = snapshot.val();
+        // debugger;
+        // this.setState({data: })
+        this.setState({data: newData});
     }, this)
   }
 
