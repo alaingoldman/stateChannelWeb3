@@ -82,12 +82,20 @@ app.post('/firetest', function (req, res) {
     }
     console.log(effectPoints);
 
-    // checks if heal or if damage
+    // checks if heal or damage
     if(moveSelected.isDamage){
       battleState.defender.hp = battleState.defender.hp - effectPoints;
     }else {
       battleState.attacker.hp = battleState.attacker.hp + effectPoints;
     }
+    battleState.turn = battleState.turn + 1;
+    let ref = firebase.database().ref("example");
+    ref.set(battleState).then((f) => {
+      // this.setState({ data: value });
+      console.log("success!")
+    }).catch((e) => {
+      console.log("error!")
+    })
   });
 
   });
@@ -101,7 +109,7 @@ var Moves = {
       delay: 0,
       duration: 0,
       accuracy: 0.93,
-      effect: 0.5,
+      effect: 0.1,
       criticalBonus: 5
   },
   2 : {
@@ -110,7 +118,7 @@ var Moves = {
       delay: 0,
       duration: 0,
       accuracy: 1,
-      effect: 0.25,
+      effect: 0.1,
       criticalBonus: 0
   },
   3 : {
@@ -119,7 +127,7 @@ var Moves = {
       delay: 1,
       duration: 3,
       accuracy: 0.90,
-      effect: 0.5,
+      effect: 0.1,
       criticalBonus: 0
   }
 };
