@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import * as firebase from 'firebase';
 
-
 class Firetest extends Component {
   constructor(props){
     super(props);

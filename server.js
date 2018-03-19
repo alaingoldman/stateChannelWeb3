@@ -20,8 +20,11 @@ app.get('/', function (req, res) {
 });
 
 app.post('/firetest', function (req, res) {
-  // firebase.database().ref("example").once("value", function(snapshot) {
+  firebase.database().ref("example").once("value", function(snapshot) {
+    // WHO IS ATTACKER WHO IS DEFENDER 
+    
     // VALIDATIONS HERE ::::::::::::::::
+      // - check if you are in this battle
       // - check if it's your turn
       // - check if you own those moves 
       // - check you and the other dude are not dead
@@ -30,20 +33,20 @@ app.post('/firetest', function (req, res) {
     // LOCAL VARIABLES ::::::::::::::
     let monsterBp = 123; //////////// to be changed <-----
     let moveSelected = Moves[parseInt(req.body.move)];
-    // let battleState = snapshot.val();
-    let battleState = {
-      attacker: {
-          bp: 123,
-          hp: 123, 
-          moves: [1,2,3]
-      },
-      defender: {
-          bp: 123,
-          hp: 123, 
-          moves: [1,2,3]
-      },
-      turn: 0 
-    }
+    let battleState = snapshot.val();
+    // let battleState = {
+    //   attacker: {
+    //       bp: 123,
+    //       hp: 123, 
+    //       moves: [1,2,3]
+    //   },
+    //   defender: {
+    //       bp: 123,
+    //       hp: 123, 
+    //       moves: [1,2,3]
+    //   },
+    //   turn: 0 
+    // }
     let moveAccuracy = moveSelected.accuracy * 100; 
     let effectPoints;
     let criticalHit;
@@ -78,6 +81,14 @@ app.post('/firetest', function (req, res) {
       effectPoints = 0;
     }
     console.log(effectPoints);
+
+    // checks if heal or if damage
+    if(moveSelected.isDamage){
+      battleState.defender.hp = battleState.defender.hp - effectPoints;
+    }else {
+      battleState.attacker.hp = battleState.attacker.hp + effectPoints;
+    }
+  });
 
   });
 
